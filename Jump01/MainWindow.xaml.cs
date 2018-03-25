@@ -215,6 +215,7 @@ namespace Jump01
         //******************************* Drwa *******************************//
         #region Draw
 
+        //初始化测试用的DataGrid
         public void DrawDataGridTestInitialize()//初始化测试用的DataGrid
         {           
             //Person属性DataGrid内容

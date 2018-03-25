@@ -15,7 +15,7 @@
             <Label x:Name="labelFrame" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="124,270,0,0" TextWrapping="Wrap" Text="RealTimeStep = " VerticalAlignment="Top"/>
         </Grid>
-      
+
 
 
         <Canvas>
@@ -29,10 +29,6 @@
             <Canvas Name="Layer_Person">
                 <local:UCPerson x:Name="DrawPlayer"    Canvas.Left="100" Canvas.Top="600"/>
             </Canvas>
-            
         </Canvas>
-        
-
-
     </Grid>
 </Window>
