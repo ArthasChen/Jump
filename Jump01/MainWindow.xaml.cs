@@ -104,6 +104,8 @@ namespace Jump01
         public int drawStateIndex = 10;
         //镜头状态索引
         public int backgroundMoveIndex = 0;
+        //Cube下落弹性反弹动画状态索引
+        public int cubeFallIndex = 0;
 
         public DateTime PressStartTime = DateTime.MinValue;
         public float dPressTime = 0;
@@ -154,6 +156,7 @@ namespace Jump01
             TextTestData();//按压时间显示
 
             RunDraw();
+            RunCubeFall();
         }
         public void isGameContinue()
         {
@@ -308,8 +311,8 @@ namespace Jump01
                             //当动画结束后，进入0状态等待命令,重新开始新的游戏循环
                             nStateIndex = 0;
                             drawStateIndex = 1320;
-                            //nStateIndex = 320;
-                   
+                            cubeFallIndex = 1;
+
 
 
                             //跳到了第几个方块
@@ -539,6 +542,34 @@ namespace Jump01
                         //方块弹性形变后恢复的效果。无论小人是哪种情况，只要跳起，cube都有这个效果。
                         CubeElasticRestore();
                         FailLongAnimationWithJump(player);
+                        break;
+                    }
+            }
+        }
+
+
+        public void RunCubeFall()
+        {
+            switch (cubeFallIndex)
+            {
+                case 0:
+                    {
+                        break;
+                    }
+                case 1:
+                    {
+                        if (CreatNewCubeFrameCounts < CreatNewCubeFrames)
+                        {
+                            double y = (NowCube.Position[1] + NextCube.dy + 250 - (250d / CreatNewCubeFrames) * (CreatNewCubeFrameCounts + 1));
+                            UcNextCubeCom.SetValue(Canvas.BottomProperty, y);
+                            CreatNewCubeFrameCounts++;
+
+                        }
+                        if (CreatNewCubeFrameCounts == CreatNewCubeFrames)
+                        {
+                            CreatNewCubeFrameCounts = 0;
+                            cubeFallIndex = 0;
+                        }
                         break;
                     }
             }
@@ -1068,12 +1099,12 @@ namespace Jump01
         {
             if (NowCube.RefreshDirection == NextCube.RefreshDirection)
             {
-                FamilyCanvas.SetValue(Canvas.LeftProperty, LastLeftValue - NextCube.k * (NextCube.dx / 24));
-                FamilyCanvas.SetValue(Canvas.TopProperty, LastTopValue + (NextCube.dy / 24));
+                FamilyCanvas.SetValue(Canvas.LeftProperty, LastLeftValue - NextCube.k * (NextCube.dx / CameraMoveFrames));
+                FamilyCanvas.SetValue(Canvas.TopProperty, LastTopValue + (NextCube.dy / CameraMoveFrames));
             }
             if (NowCube.RefreshDirection != NextCube.RefreshDirection)
             {
-                FamilyCanvas.SetValue(Canvas.TopProperty, LastTopValue + (NextCube.dy / 24));
+                FamilyCanvas.SetValue(Canvas.TopProperty, LastTopValue + (NextCube.dy / CameraMoveFrames));
             }
         }
         public void UpdataBackgroundLastPosition()
