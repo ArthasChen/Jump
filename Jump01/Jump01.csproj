@@ -58,11 +58,17 @@
     <Compile Include="UCBackgroundxaml.xaml.cs">
       <DependentUpon>UCBackgroundxaml.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UCCube.xaml.cs">
-      <DependentUpon>UCCube.xaml</DependentUpon>
+    <Compile Include="UCcube1.xaml.cs">
+      <DependentUpon>UCcube1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCcubeCompression.xaml.cs">
+      <DependentUpon>UCcubeCompression.xaml</DependentUpon>
     </Compile>
     <Compile Include="UCPerson.xaml.cs">
       <DependentUpon>UCPerson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCPersonSeparation.xaml.cs">
+      <DependentUpon>UCPersonSeparation.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -74,7 +80,6 @@
     </Compile>
     <Compile Include="CreatRandomNumber.cs" />
     <Compile Include="Cube.cs" />
-    <Compile Include="ICreatRandomNumber.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -83,11 +88,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UCCube.xaml">
+    <Page Include="UCcube1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCcubeCompression.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UCPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCPersonSeparation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +141,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\player2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Body.png" />
+    <Resource Include="Images\Head.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bottom1.png" />
+    <Resource Include="Images\RightBottom1.png" />
+    <Resource Include="Images\top1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

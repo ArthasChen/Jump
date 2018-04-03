@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Jump01
 {
     /// <summary>
-    /// UCCube.xaml 的交互逻辑
+    /// UCcube1.xaml 的交互逻辑
     /// </summary>
-    public partial class UCCube : UserControl
+    public partial class UCcube1 : UserControl
     {
-        public UCCube()
+        public UCcube1()
         {
             InitializeComponent();
         }
