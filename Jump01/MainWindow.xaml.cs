@@ -320,12 +320,6 @@ namespace Jump01
                         }
                         break;
                     }
-                case 320://空跑，用来在绘制新生成方块掉下来反弹动画时
-                    {
-
-                        nStateIndex = 0;
-                        break;
-                    }
                 case 33://失败，跳过了下一个Cube的情况
                     {
                         textBlockbb.Text = "State 33 失败，跳过了下一个Cube的情况";
@@ -478,7 +472,7 @@ namespace Jump01
             textBlock4.Text = "RealTimeStep = " + showRealTimeStep.ToString();
         }
             
-        
+        //绘画状态的内容
         public void RunDraw()
         {
             switch (drawStateIndex)
@@ -547,7 +541,10 @@ namespace Jump01
             }
         }
 
-
+        //cube出现后的下落反弹动画。本来应该在RunDraw里，但是写在里面会出现一些时间上的问题。
+        /*跳一跳原版里，当小人成功跳到cube的一瞬间，出现下一cube，此时cube在高处，经过几帧的动画后，下一个cube下落反弹最终触地，与此同时，镜头开始移动，最终在下一cube稳定落地时镜头也移动结束。
+        但是，当小人当小人成功跳到cube的一瞬间，就可以开始蓄力下一次跳跃了。也就是说在此时下一个cube还没落地，镜头也没完全移动结束，但是就可以开始蓄力了。为了实现这个机制，不得不把cube下落反
+        弹动画独立出来，暂时想到的是这个方法，以后再优化*/
         public void RunCubeFall()
         {
             switch (cubeFallIndex)
@@ -560,7 +557,10 @@ namespace Jump01
                     {
                         if (CreatNewCubeFrameCounts < CreatNewCubeFrames)
                         {
-                            double y = (NowCube.Position[1] + NextCube.dy + 250 - (250d / CreatNewCubeFrames) * (CreatNewCubeFrameCounts + 1));
+                            double x =(1d/ CreatNewCubeFrames)* (CreatNewCubeFrameCounts+1);
+                            double yvalue = 250 * BounceEaseOutFucntion(x);
+                            //double y = (NowCube.Position[1] + NextCube.dy + 250 - (250d / CreatNewCubeFrames) * (CreatNewCubeFrameCounts + 1));//线性下落test
+                            double y = (NowCube.Position[1] + NextCube.dy + (250-yvalue));
                             UcNextCubeCom.SetValue(Canvas.BottomProperty, y);
                             CreatNewCubeFrameCounts++;
 
@@ -572,6 +572,27 @@ namespace Jump01
                         }
                         break;
                     }
+            }
+        }
+
+        //cube下落反弹函数
+        public double BounceEaseOutFucntion(double p)
+        {
+            if (p < 4 / 11.0)
+            {
+                return (121 * p * p) / 16.0;
+            }
+            else if (p < 8 / 11.0)
+            {
+                return (363 / 40.0 * p * p) - (99 / 10.0 * p) + 17 / 5.0;
+            }
+            else if (p < 9 / 10.0)
+            {
+                return (4356 / 361.0 * p * p) - (35442 / 1805.0 * p) + 16061 / 1805.0;
+            }
+            else
+            {
+                return (54 / 5.0 * p * p) - (513 / 25.0 * p) + 268 / 25.0;
             }
         }
 
@@ -712,7 +733,7 @@ namespace Jump01
             }
         }
 
-        //重置cube的压缩动画
+        //重置cube的压缩动画,最初的版本使用，候来来被下面的CubeElasticRestore方法取代。
         public void RelaxAndResetParameterOfCubeCompression()
         {
             CubeCompressionCount = 0;
@@ -765,8 +786,6 @@ namespace Jump01
 
             UcNowCubeCom.topface.RenderTransform = moveTop;
         }
-
-
 
 
         //方块弹性形变后恢复的效果。无论小人是哪种情况，只要跳起，cube都有这个效果。
@@ -1049,7 +1068,7 @@ namespace Jump01
         }
         #endregion
 
-        //跳跃成功后生成新cube并且新cube下落反弹的动画
+        //跳跃成功后生成新cube,并改变镜头位置状态backgroundMoveIndex = 1，下个循环开始背景移动
         public void ShowNewCube()
         {
             //UcNowCubeCom = UCcubecom1;
@@ -1070,6 +1089,7 @@ namespace Jump01
             backgroundMoveIndex = 1;
         }
 
+        //镜头位置状态
         public void CameraPosition()
         {
             switch (backgroundMoveIndex)
@@ -1095,6 +1115,7 @@ namespace Jump01
             }
         }
 
+        //为了实现移动镜头的效果，开始移动背景
         public void MoveBackground()
         {
             if (NowCube.RefreshDirection == NextCube.RefreshDirection)
@@ -1107,6 +1128,8 @@ namespace Jump01
                 FamilyCanvas.SetValue(Canvas.TopProperty, LastTopValue + (NextCube.dy / CameraMoveFrames));
             }
         }
+
+        //更新记录每次背景移动后背景Canvas的Position
         public void UpdataBackgroundLastPosition()
         {
             LastLeftValue = (double)FamilyCanvas.GetValue(Canvas.LeftProperty);
