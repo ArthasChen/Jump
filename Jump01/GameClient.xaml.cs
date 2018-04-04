@@ -20,7 +20,7 @@ namespace Jump01
     public partial class GameClient : Window
     {
         PageStart PGstart = new PageStart();
-        PageGameContent PGgamelogic = new PageGameContent();
+        //PageGameContent PGgamelogic = new PageGameContent();//改到了进入游戏界面的前一帧里。假如放在这里，进入此界面游戏中的player就已经下落了
         public int frameConuts = 0;
         public GameClient()
         {
@@ -42,6 +42,7 @@ namespace Jump01
                 }
                 else
                 {
+                    PageGameContent PGgamelogic = new PageGameContent();//这是进入游戏界面的前一帧，在这帧中实例化游戏逻辑，以至于进入游戏可以看到小人落下，假如在23行实例化，还没点进入游戏，小人就已经落下了
                     frameConuts = 0;
                     PGstart.isStartGame = false;
                     PGgamelogic.Focus();

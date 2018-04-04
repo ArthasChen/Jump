@@ -40,7 +40,8 @@
                 </Canvas>
 
                 <!--person的图层-->
-                <Canvas Name="Layer_Person" Background="Beige" Width="50" Height="50" Canvas.Left="0" Canvas.Top="756">
+                <!--person的高度为Canvas.Top="756"是人在cube上，初始化时定为人在cube上250个单位，因此Canvas.Top="506"-->
+                <Canvas Name="Layer_Person" Background="Beige" Width="50" Height="50" Canvas.Left="0" Canvas.Top="506">
                     <!--如果要用这个控件，把Name和下面的Name互换，用UCplayer当实例名，因为后面的代码都用UCplayer-->
                     <!--<local:UCPerson x:Name="test" Canvas.Left="100" Canvas.Bottom="300"/>-->
                     

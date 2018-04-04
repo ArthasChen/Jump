@@ -50,6 +50,7 @@ namespace Jump01
         public bool RunDrawState132EndFlag = false;
         public bool RunDrawState133EndFlag = false;
         public bool RunDrawState1320EndFlag = false;
+        public bool RunDrawStateNegative11EndFlag = false;
 
         //游戏完善后可以删掉，计算播放跳跃成功的动画，没什么意义
         public int CountOfAnimationFrame = 0;
@@ -66,6 +67,10 @@ namespace Jump01
         public int CreatNewCubeFrames = 24;
         //设定生成新cube以及新cube的移动动画的帧数计数器
         public int CreatNewCubeFrameCounts = 0;
+        //设定player下落动画总帧数
+        public int playerFallAnimationFrames = 24;
+        //设定player下落动画计数器
+        public int playerFallAnimationFramesCounts = 0;
 
         //压缩的X Y 坐标
         public double scaleX = 1;
@@ -99,7 +104,7 @@ namespace Jump01
         public bool bGameOver = false;
 
         //游戏状态索引
-        public int nStateIndex = 0;
+        public int nStateIndex = -1;
         //绘画状态索引
         public int drawStateIndex = 10;
         //镜头状态索引
@@ -209,6 +214,17 @@ namespace Jump01
         {
             switch (nStateIndex)
             {
+                case -1://小人下落状态,只在游戏开始时运行一次,但是需要运行好几帧，此后循环只从nStateIndex=0开始
+                    {
+                        drawStateIndex = -11;
+                        //当最后一帧运行动画时，进入if，因此在倒数第二针帧的动画结束时，RunDrawStateNegative11EndFlag赋值true，以至于最后一帧时进入此判断
+                        if (RunDrawStateNegative11EndFlag)
+                        {
+                            RunDrawStateNegative11EndFlag = false;
+                            nStateIndex = 0;
+                        }
+                        break;
+                    }
                 case 0://空闲状态，等待按压
                     {
                         textBlockbb.Text = "State 0 " + $"第{CountOfLevel}个方块" + " counts= " + CountOfAnimationFrame.ToString();
@@ -505,8 +521,15 @@ namespace Jump01
         //绘画状态的内容
         public void RunDraw()
         {
+
             switch (drawStateIndex)
             {
+                case -11://小人下落状态,只在游戏开始时运行一次,但是需要运行好几帧，此后循环只从nStateIndex=0开始
+                    {
+                        //初始化时，小人下落动画
+                        PersonFallAnimation();
+                        break;
+                    }
                 case 10://空闲状态，等待按压
                     {
                         break;
@@ -568,6 +591,24 @@ namespace Jump01
                         FailLongAnimationWithJump(player);
                         break;
                     }
+            }
+        }
+
+        //小人下落动画
+        public void PersonFallAnimation()
+        {
+            double x = (1d / playerFallAnimationFrames) * (playerFallAnimationFramesCounts + 1);
+            double yvalue = 250 * BounceEaseOutFucntion(x);
+            // Double Y = (250d / playerFallAnimationFrames) * (playerFallAnimationFramesCounts+1);//test用的，每帧线性下落距离
+            Layer_Person.SetValue(Canvas.TopProperty, 506d + yvalue);
+            playerFallAnimationFramesCounts++;
+            if (playerFallAnimationFramesCounts == playerFallAnimationFrames - 1)
+            {
+                RunDrawStateNegative11EndFlag = true;
+            }
+            if (playerFallAnimationFramesCounts == playerFallAnimationFrames)
+            {
+                playerFallAnimationFramesCounts = 0;
             }
         }
 
