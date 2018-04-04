@@ -21,6 +21,7 @@ namespace Jump01
     {
         PageStart PGstart = new PageStart();
         PageGameContent PGgamelogic = new PageGameContent();
+        public int frameConuts = 0;
         public GameClient()
         {
             InitializeComponent();
@@ -35,19 +36,22 @@ namespace Jump01
         {
             if (PGstart.isStartGame)
             {
-                
-                PGgamelogic.Focus();
-                this.Content = PGgamelogic;
+                if (frameConuts++ < 1)
+                {
 
-                StartGame();
-                CompositionTarget.Rendering -= CompositionTarget_Rendering2;
-            }
+                }
+                else
+                {
+                    frameConuts = 0;
+                    PGstart.isStartGame = false;
+                    PGgamelogic.Focus();
+                    this.Content = PGgamelogic;
+                    CompositionTarget.Rendering -= CompositionTarget_Rendering2; ;                  
+                }          
+            }         
         }
 
-        public void StartGame()
-        {
-           
-        }
+     
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {

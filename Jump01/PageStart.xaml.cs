@@ -41,11 +41,7 @@ namespace Jump01
             PageStartButton.RenderTransform = change;
 
             isStartGame = true;
-       //     MessageBox.Show("image OK");
-
-            change.ScaleX = 1;
-            change.ScaleY = 1;
-            PageStartButton.RenderTransform = change;
+     
         }
     }
 }
