@@ -55,6 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GameClient.xaml.cs">
+      <DependentUpon>GameClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGameContent.xaml.cs">
+      <DependentUpon>PageGameContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageStart.xaml.cs">
+      <DependentUpon>PageStart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UCBackgroundxaml.xaml.cs">
       <DependentUpon>UCBackgroundxaml.xaml</DependentUpon>
     </Compile>
@@ -70,6 +79,10 @@
     <Compile Include="UCPersonSeparation.xaml.cs">
       <DependentUpon>UCPersonSeparation.xaml</DependentUpon>
     </Compile>
+    <Page Include="GameClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,6 +97,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PageGameContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageStart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UCBackgroundxaml.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

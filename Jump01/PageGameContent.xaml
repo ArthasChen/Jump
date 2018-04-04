@@ -1,0 +1,53 @@
+﻿<Page x:Class="Jump01.PageGameContent"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Jump01"
+      mc:Ignorable="d" 
+      d:DesignHeight="831" d:DesignWidth="450" 
+      Title="PageGameContent" KeyDown="Page_KeyDown" KeyUp="Page_KeyUp" Focusable="True">
+    <Page.Resources>
+        <GeometryGroup   x:Key="ClipR">
+            <RectangleGeometry  Rect="0,0,450,800" RadiusX="0" RadiusY="0"></RectangleGeometry>
+        </GeometryGroup>
+    </Page.Resources>
+    <Grid x:Name="Grid1" Width="450" Height="800">
+        <Grid x:Name="Grid2" Panel.ZIndex="1">
+            <TextBlock x:Name="textBlockbb" HorizontalAlignment="Left" Margin="38,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Width="364"/>
+            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="124,246,0,0" TextWrapping="Wrap" Text="RealTimePressTime = " VerticalAlignment="Top"/>
+            <!--<TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="326,461,0,0" TextWrapping="Wrap" Text="0 - 1000 state = 0  1000-2000 state = 3 2000-3000 state = 2 3000-    state = 3  " VerticalAlignment="Top" Height="169" Width="116"/>-->
+            <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="124,295,0,0" TextWrapping="Wrap" Text="PressTime = " VerticalAlignment="Top"/>
+            <Label x:Name="labelFrame" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="124,270,0,0" TextWrapping="Wrap" Text="RealTimeStep = " VerticalAlignment="Top"/>
+        </Grid>
+
+        <Canvas >
+            <Canvas Name="Layer_Background">
+                <local:UCBackgroundxaml />
+            </Canvas>
+        </Canvas>
+        <Canvas Clip="{StaticResource ClipR}" >
+            <Canvas x:Name="FamilyCanvas" Panel.ZIndex="0"   Canvas.Left="0" Canvas.Top="0">
+
+                <!--cube的图层-->
+                <Canvas Name="Layer_Cube"  Background="YellowGreen" Width="50" Height="50" Canvas.Left="0" Canvas.Top="850">
+                    <!--<local:UCcube1 x:Name="UCcube0" Canvas.Left="100" Canvas.Bottom="300"></local:UCcube1>
+                    <local:UCcube1 x:Name="UCcube1" Canvas.Left="273.2051" Canvas.Bottom="400"></local:UCcube1>-->
+
+                    <!--可以压缩的cube-->
+                    <local:UCcubeCompression x:Name="UCcubecomZero" Canvas.Left="100" Canvas.Bottom="300"></local:UCcubeCompression>
+                    <local:UCcubeCompression x:Name="UCcubecomOne"  Canvas.Left="273.2051" Canvas.Bottom="400"></local:UCcubeCompression>
+                </Canvas>
+
+                <!--person的图层-->
+                <Canvas Name="Layer_Person" Background="Beige" Width="50" Height="50" Canvas.Left="0" Canvas.Top="756">
+                    <!--如果要用这个控件，把Name和下面的Name互换，用UCplayer当实例名，因为后面的代码都用UCplayer-->
+                    <!--<local:UCPerson x:Name="test" Canvas.Left="100" Canvas.Bottom="300"/>-->
+
+                    <local:UCPersonSeparation x:Name="UCplayer" Canvas.Left="100" Canvas.Bottom="300"></local:UCPersonSeparation>
+                </Canvas>
+            </Canvas>
+        </Canvas>
+    </Grid>
+</Page>

@@ -1,0 +1,18 @@
+﻿<Page x:Class="Jump01.PageStart"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Jump01"
+      mc:Ignorable="d" 
+      d:DesignHeight="831" d:DesignWidth="450" 
+      Title="PageStart">
+
+    <Grid>
+        <Canvas >
+            <Image Source="Images/Background.png" Width="450" Height="841" Canvas.Top="-10" ></Image>
+            <Image x:Name="PageStartButton" Source="Images/StartGame2.png" Canvas.Left="129" Canvas.Top="605" MouseLeftButtonDown="Image_MouseLeftButtonDown" ></Image>
+            <Image Source="Images/StartJumpFonts.png" Canvas.Left="84" Canvas.Top="117" Height="89" Width="281"   ></Image>
+        </Canvas>
+    </Grid>
+</Page>
