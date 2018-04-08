@@ -127,6 +127,8 @@ namespace Jump01
         //镜头移动计数器
         public int icamera = 0;
 
+        public delegate void GameOverPanel(int seclectionIndex);
+        public event GameOverPanel gameoverpanel;
 
         public PageGameContent()
         {
@@ -167,7 +169,7 @@ namespace Jump01
         public void isGameContinue()
         {
             if (!bGameOver) return;
-            newpage();//当游戏结束时，加载的button
+            GameOverInterface();//当游戏结束时，生成结束页面
             CompositionTarget.Rendering -= CompositionTarget_Rendering;
         }
 
@@ -228,6 +230,7 @@ namespace Jump01
                 case 0://空闲状态，等待按压
                     {
                         textBlockbb.Text = "State 0 " + $"第{CountOfLevel}个方块" + " counts= " + CountOfAnimationFrame.ToString();
+                        ScoreNumber.Content = CountOfLevel.ToString();
 
                         //计算安全区,计算新的nowcube和nextcube表面的四条函数方程
                         NowCube.ComputeParameterOfSafeZone();
@@ -479,33 +482,14 @@ namespace Jump01
             FrameTotal++;
         }
 
-        public void newpage()//游戏结束时，生成的Button
+        public void GameOverInterface()//当游戏结束时，生成结束页面
         {
-            if (bGameOver == true)
-            {
-                Button ReStartButton = new Button();
-                ReStartButton.Click += ReStartButton_Click;
-
-                ReStartButton.Content = "Restart";
-                ReStartButton.Width = 75;
-                ReStartButton.Height = 20;
-                ReStartButton.HorizontalAlignment = HorizontalAlignment.Right;
-                ReStartButton.VerticalAlignment = VerticalAlignment.Top;
-                ReStartButton.Margin = new Thickness(0, 680, 10, 0);
-
-                Grid2.Children.Add(ReStartButton);
-
-                Button CloseButton = new Button();
-
-                CloseButton.Content = "Close";
-                CloseButton.Width = 75;
-                CloseButton.Height = 20;
-                CloseButton.HorizontalAlignment = HorizontalAlignment.Right;
-                CloseButton.VerticalAlignment = VerticalAlignment.Top;
-                CloseButton.Margin = new Thickness(0, 680, 95, 0);
-
-                Grid2.Children.Add(CloseButton);
-            }
+            //游戏Page中的记分板隐藏
+            ScoreNumber.Visibility = Visibility.Hidden;
+            //游戏结束的页面出现
+            GameOverCanvas.Visibility = Visibility.Visible;
+            //将游戏分数显示在游戏结束的页面中，赋值给
+            LastScoreNumber.Content = CountOfLevel;
         }
 
 
@@ -1206,18 +1190,29 @@ namespace Jump01
             LastLeftValue = (double)FamilyCanvas.GetValue(Canvas.LeftProperty);
             LastTopValue = (double)FamilyCanvas.GetValue(Canvas.TopProperty);
         }
-        private void ReStartButton_Click(object sender, RoutedEventArgs e)
-        {
-            //重置游戏
-            MessageBox.Show("al");//此行测试
-            //PersonCubeInitialize();
-            //DrawDataGridTestInitialize();
 
-            //CompositionTarget.Rendering += CompositionTarget_Rendering;//主窗口加载完立即进入游戏，简化省略了开始游戏选择窗口。
+
+        private void buttonHome_Click(object sender, RoutedEventArgs e)
+        {
+            gameoverpanel(1);
+        }
+        private void buttonRestart_Click(object sender, RoutedEventArgs e)
+        {
+            gameoverpanel(2);
         }
 
+        private void homeButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            gameoverpanel(1);
+        }
+        private void ReStartButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            gameoverpanel(2);
+        }
+
+        
         #endregion
 
-       
+
     }
 }

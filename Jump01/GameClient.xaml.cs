@@ -20,6 +20,9 @@ namespace Jump01
     public partial class GameClient : Window
     {
         PageStart PGstart = new PageStart();
+       
+
+
         //PageGameContent PGgamelogic = new PageGameContent();//改到了进入游戏界面的前一帧里。假如放在这里，进入此界面游戏中的player就已经下落了
         public int frameConuts = 0;
         public GameClient()
@@ -42,17 +45,40 @@ namespace Jump01
                 }
                 else
                 {
+                    PGstart.ResetSizeStartButton();
                     PageGameContent PGgamelogic = new PageGameContent();//这是进入游戏界面的前一帧，在这帧中实例化游戏逻辑，以至于进入游戏可以看到小人落下，假如在23行实例化，还没点进入游戏，小人就已经落下了
+                    PGgamelogic.gameoverpanel += PGgamelogic_gameoverpanel;              
                     frameConuts = 0;
                     PGstart.isStartGame = false;
                     PGgamelogic.Focus();
                     this.Content = PGgamelogic;
-                    CompositionTarget.Rendering -= CompositionTarget_Rendering2; ;                  
+                    CompositionTarget.Rendering -= CompositionTarget_Rendering2;                
                 }          
             }         
         }
 
-     
+        private void PGgamelogic_gameoverpanel(int seclectionIndex)
+        {
+            if (seclectionIndex == 1)//回到主页 PageStart
+            {
+                //MessageBox.Show("1");
+                RunPageStart();
+                CompositionTarget.Rendering += CompositionTarget_Rendering2;
+            }
+            if (seclectionIndex == 2)//重开游戏 PageGameContent
+            {
+               
+                //MessageBox.Show("2");
+                PGstart.ResetSizeStartButton();
+                PageGameContent PGgamelogic = new PageGameContent();//这是进入游戏界面的前一帧，在这帧中实例化游戏逻辑，以至于进入游戏可以看到小人落下，假如在23行实例化，还没点进入游戏，小人就已经落下了
+                PGgamelogic.gameoverpanel += PGgamelogic_gameoverpanel;
+                frameConuts = 0;
+                PGstart.isStartGame = false;
+                PGgamelogic.Focus();
+                this.Content = PGgamelogic;
+                CompositionTarget.Rendering -= CompositionTarget_Rendering2;
+            }
+        }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {

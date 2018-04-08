@@ -11,7 +11,7 @@
     <Grid>
         <Canvas >
             <Image Source="Images/Background.png" Width="450" Height="841" Canvas.Top="-10" ></Image>
-            <Image x:Name="PageStartButton" Source="Images/StartGame2.png" Canvas.Left="129" Canvas.Top="605" MouseLeftButtonDown="Image_MouseLeftButtonDown" ></Image>
+            <Image x:Name="PageStartButton" Source="Images/StartGame2.png" Canvas.Left="129" Canvas.Top="605" MouseLeftButtonDown="Image_MouseLeftButtonDown"  ></Image>
             <Image Source="Images/StartJumpFonts.png" Canvas.Left="84" Canvas.Top="117" Height="89" Width="281"   ></Image>
         </Canvas>
     </Grid>

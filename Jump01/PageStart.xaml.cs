@@ -29,6 +29,7 @@ namespace Jump01
         public PageStart()
         {
             InitializeComponent();
+            ResetSizeStartButton();
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -40,8 +41,15 @@ namespace Jump01
 
             PageStartButton.RenderTransform = change;
 
-            isStartGame = true;
-     
+            isStartGame = true;    
+        }
+
+        public void ResetSizeStartButton()
+        {
+            change.ScaleX = 1;
+            change.ScaleY = 1;
+
+            PageStartButton.RenderTransform = change;
         }
     }
 }

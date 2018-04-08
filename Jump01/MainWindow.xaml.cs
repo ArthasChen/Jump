@@ -168,7 +168,7 @@ namespace Jump01
         public void isGameContinue()
         {
             if (!bGameOver) return;
-            newpage();//当游戏结束时，加载的button
+            GameOverInterface();//当游戏结束时，生成结束页面
             CompositionTarget.Rendering -= CompositionTarget_Rendering;
         }
 
@@ -229,6 +229,7 @@ namespace Jump01
                 case 0://空闲状态，等待按压
                     {
                         textBlockbb.Text = "State 0 " + $"第{CountOfLevel}个方块" + " counts= " + CountOfAnimationFrame.ToString();
+                        ScoreNumber.Content = CountOfLevel.ToString();
 
                         //计算安全区,计算新的nowcube和nextcube表面的四条函数方程
                         NowCube.ComputeParameterOfSafeZone();
@@ -292,6 +293,8 @@ namespace Jump01
                             RunDrawState131EndFlag = false;
 
                             bGameOver = true;
+                            
+                            
                         }
 
                         break;
@@ -451,33 +454,15 @@ namespace Jump01
             FrameTotal++;
         }
 
-        public void newpage()//游戏结束时，生成的Button
+        public void GameOverInterface()//当游戏结束时，生成结束页面
         {
-            if (bGameOver == true)
-            {
-                Button ReStartButton = new Button();
-                ReStartButton.Click += ReStartButton_Click;
+            //游戏Page中的记分板隐藏
+            ScoreNumber.Visibility = Visibility.Hidden;
+            //游戏结束的页面出现
+            GameOverCanvas.Visibility = Visibility.Visible;
+            //将游戏分数显示在游戏结束的页面中，赋值给
+            LastScoreNumber.Content = CountOfLevel;
 
-                ReStartButton.Content = "Restart";
-                ReStartButton.Width = 75;
-                ReStartButton.Height = 20;
-                ReStartButton.HorizontalAlignment = HorizontalAlignment.Right;
-                ReStartButton.VerticalAlignment = VerticalAlignment.Top;
-                ReStartButton.Margin = new Thickness(0, 680, 10, 0);
-
-                Grid2.Children.Add(ReStartButton);
-
-                Button CloseButton = new Button();
-
-                CloseButton.Content = "Close";
-                CloseButton.Width = 75;
-                CloseButton.Height = 20;
-                CloseButton.HorizontalAlignment = HorizontalAlignment.Right;
-                CloseButton.VerticalAlignment = VerticalAlignment.Top;
-                CloseButton.Margin = new Thickness(0, 680, 95, 0);
-
-                Grid2.Children.Add(CloseButton);
-            }
         }
 
        
@@ -1188,5 +1173,20 @@ namespace Jump01
         }
 
         #endregion
+
+        private void buttonRestart_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("re");
+        }
+
+        private void ReStartButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void homeButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

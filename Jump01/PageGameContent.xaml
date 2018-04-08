@@ -23,8 +23,10 @@
         </Grid>
 
         <Canvas >
+            <!--背景层 以及 积分板-->
             <Canvas Name="Layer_Background">
                 <local:UCBackgroundxaml />
+                <Label x:Name="ScoreNumber" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Chainreact Block Boxter" Height="109" Width="182" FontSize="72" Foreground="#FF4D4C4A" Canvas.Left="29" Canvas.Top="20"/>
             </Canvas>
         </Canvas>
         <Canvas Clip="{StaticResource ClipR}" >
@@ -48,6 +50,15 @@
 
                     <local:UCPersonSeparation x:Name="UCplayer" Canvas.Left="100" Canvas.Bottom="300"></local:UCPersonSeparation>
                 </Canvas>
+            </Canvas>
+            <Canvas x:Name="GameOverCanvas" Visibility="Hidden">
+                <Rectangle x:Name="ScoreTotalOfGameOver" Width="450" Height="800" Fill="#FFA895A8" Opacity="0.6" />
+                <Label x:Name="LastScoreNumber" Content="0" HorizontalAlignment="Center" Height="194" Width="313" FontFamily="Chainreact Block Boxter" FontSize="150" Foreground="#FFF5E6E6" Canvas.Left="175" Canvas.Top="42"/>
+
+                <!--<Button x:Name="buttonHome" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Canvas.Left="70" Canvas.Top="694" Click="buttonHome_Click"/>
+                <Button x:Name="buttonRestart" Content="Restart" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Canvas.Left="245" Canvas.Top="694" Click="buttonRestart_Click"/>-->
+                <Image x:Name="homeButton"  Source="Images/home.png" Canvas.Left="60" Canvas.Top="620" Height="55" Width="97" MouseLeftButtonDown="homeButton_MouseLeftButtonDown" ></Image>
+                <Image x:Name="ReStartButton" Source="Images/PlayAgain.png" Canvas.Left="213" Canvas.Top="620" Height="55" Width="171" MouseLeftButtonDown="ReStartButton_MouseLeftButtonDown" ></Image>
             </Canvas>
         </Canvas>
     </Grid>
