@@ -144,7 +144,7 @@ namespace Jump01
         }
         public float PressTimeToDistance(float PressTime)
         {
-            float k = (150F) / 1000f;//之前方块边长是30，所以用一半15除以1000ms，现在边长是94，因此是94的一半除以1s
+            float k = (200F) / 1000f;//之前方块边长是30，所以用一半15除以1000ms，现在边长是94，因此是94的一半除以1s
             distanaceofmove = PressTime * k;
             return distanaceofmove;
         }

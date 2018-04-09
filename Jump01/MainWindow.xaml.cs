@@ -60,7 +60,7 @@ namespace Jump01
         //短动画已绘画帧数计数器
         public int shortAnimationFrameCounts = 0;
         //设定长动画的绘图帧数，以多少帧来运行长动画
-        public int longAnimationFrames = 30;//Ver1=60
+        public int longAnimationFrames = 20;//Ver1=60
         //长动画已绘画帧数计数器
         public int longAnimationFrameCounts = 0;
         //设定生成新cube以及新cube的移动动画的帧数
@@ -931,6 +931,9 @@ namespace Jump01
                 UCplayer.SetValue(Canvas.LeftProperty, x);
                 UCplayer.SetValue(Canvas.BottomProperty, y);
 
+                //翻跟头
+                Overturned(shortAnimationFrameCounts, shortAnimationFrames);
+
                 shortAnimationFrameCounts++;
                 if (shortAnimationFrameCounts == shortAnimationFrames)//这个的意思是当执行完stateindex=30的动画后，才执行索引
                 {
@@ -982,6 +985,9 @@ namespace Jump01
                 double y = (double)player.XYofJump(fx);
                 UCplayer.SetValue(Canvas.LeftProperty, x);
                 UCplayer.SetValue(Canvas.BottomProperty, y);
+
+                //翻跟头
+                Overturned(shortAnimationFrameCounts, shortAnimationFrames);
 
                 shortAnimationFrameCounts++;
                 if (shortAnimationFrameCounts == shortAnimationFrames)//这个的意思是当执行完stateindex=30的动画后，才执行索引
@@ -1036,7 +1042,11 @@ namespace Jump01
                 UCplayer.SetValue(Canvas.LeftProperty, x);//这里设置canvas的值是double型的，x是double型的
                 UCplayer.SetValue(Canvas.BottomProperty, y);
 
-                longAnimationFrameCounts++;
+                //翻跟头
+                Overturned(longAnimationFrameCounts, longAnimationFrames);
+
+
+                 longAnimationFrameCounts++;
                 if (longAnimationFrameCounts == longAnimationFrames)
                 {
                     longAnimationFrameCounts = 0;
@@ -1085,6 +1095,9 @@ namespace Jump01
                 UCplayer.SetValue(Canvas.LeftProperty, x);
                 UCplayer.SetValue(Canvas.BottomProperty, y);
 
+                //翻跟头
+                Overturned(longAnimationFrameCounts, longAnimationFrames);
+
                 longAnimationFrameCounts++;
                 if (longAnimationFrameCounts == longAnimationFrames)
                 {
@@ -1094,6 +1107,25 @@ namespace Jump01
             }
         }
         #endregion
+
+        //翻跟头动画
+        public void Overturned(int FrameCounts,int AnimationFrames)
+        {
+            if (player.MoveDirection == 1)
+            {
+                RotateTransform RT = new RotateTransform();
+                RT.Angle = (360D / AnimationFrames) * (FrameCounts + 1);
+
+                UCplayer.RenderTransform = RT;
+            }
+            else
+            {
+                RotateTransform RT = new RotateTransform();
+                RT.Angle = (-360D / AnimationFrames) * (FrameCounts + 1);
+
+                UCplayer.RenderTransform = RT;
+            }
+        }
 
         //跳跃成功后生成新cube,并改变镜头位置状态backgroundMoveIndex = 1，下个循环开始背景移动
         public void ShowNewCube()

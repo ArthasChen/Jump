@@ -48,7 +48,7 @@
                     <!--如果要用这个控件，把Name和下面的Name互换，用UCplayer当实例名，因为后面的代码都用UCplayer-->
                     <!--<local:UCPerson x:Name="test" Canvas.Left="100" Canvas.Bottom="300"/>-->
 
-                    <local:UCPersonSeparation x:Name="UCplayer" Canvas.Left="100" Canvas.Bottom="300"></local:UCPersonSeparation>
+                    <local:UCPersonSeparation x:Name="UCplayer" Canvas.Left="100" Canvas.Bottom="300" RenderTransformOrigin="0,-7"/>
                 </Canvas>
             </Canvas>
             <Canvas x:Name="GameOverCanvas" Visibility="Hidden">
